@@ -1,0 +1,95 @@
+---
+const before = [
+  'Excel-таблиці замість календаря бронювань',
+  'Дзвінки й месенджери для підтвердження',
+  'Пропущені брони — втрачені гроші',
+  'Немає аналітики — незрозуміло що приносить дохід',
+  'Каса окремо, облік окремо, звіт вручну',
+  'Клієнт не знає про акції та бонуси',
+];
+
+const after = [
+  'Онлайн-календар з автоматичним підтвердженням',
+  'Мобільний застосунок — клієнти бронюють самі',
+  'Нагадування знижують кількість no-show на 60%',
+  'Дашборд у реальному часі: виручка, завантаженість',
+  'Фіскальний чек одним кліком з вбудованої каси',
+  'Автоматичні бонуси й push-сповіщення для клієнтів',
+];
+---
+
+<section class="py-24 bg-slate-950 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(99,102,241,0.05),transparent)]"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
+        <span class="text-slate-400 text-sm font-medium">Що змінюється</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
+        Хаос <span class="text-slate-600">проти</span> системи
+      </h2>
+      <p class="text-slate-400 text-lg max-w-xl mx-auto">
+        Більшість клубів втрачають клієнтів і гроші через відсутність автоматизації.
+      </p>
+    </div>
+
+    <!-- Comparison -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Before -->
+      <div class="bg-red-950/20 border border-red-900/30 rounded-2xl p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-9 h-9 bg-red-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-red-300">Без KartManager</h3>
+        </div>
+        <ul class="space-y-3.5">
+          {before.map((item) => (
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span class="text-slate-400 text-sm leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- After -->
+      <div class="bg-indigo-950/30 border border-indigo-800/30 rounded-2xl p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-9 h-9 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-300">З KartManager</h3>
+        </div>
+        <ul class="space-y-3.5">
+          {after.map((item) => (
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-slate-300 text-sm leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-12">
+      <a href="#contact" class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors duration-200 cursor-pointer">
+        Хочу систему, а не хаос
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

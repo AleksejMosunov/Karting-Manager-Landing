@@ -1,0 +1,160 @@
+---
+const plans = [
+  {
+    name: 'Стартер',
+    price: '990',
+    period: 'грн/місяць',
+    description: 'Ідеально для одного клубу з базовими потребами',
+    popular: false,
+    cta: 'Почати',
+    features: [
+      '1 локація',
+      'До 3 адміністраторів',
+      'Бронювання трас',
+      'POS-каса (Checkbox)',
+      'Мобільний застосунок',
+      'Email-підтримка',
+    ],
+    missing: [
+      'Бонусна програма',
+      'Аналітика',
+      'Мультилокаційність',
+      'Telegram-сповіщення',
+    ],
+  },
+  {
+    name: 'Бізнес',
+    price: '2 490',
+    period: 'грн/місяць',
+    description: 'Повний набір інструментів для зростаючого бізнесу',
+    popular: true,
+    cta: 'Вибрати тариф',
+    features: [
+      'До 3 локацій',
+      'Необмежена кількість адмінів',
+      'Бронювання трас',
+      'POS-каса + термінал',
+      'Бонусна програма',
+      'Аналітика та звіти',
+      'Подарункові сертифікати',
+      'Telegram + push-сповіщення',
+      'Пріоритетна підтримка',
+    ],
+    missing: [],
+  },
+  {
+    name: 'Мережа',
+    price: null,
+    period: 'Індивідуально',
+    description: 'Для великих мереж та франшиз з особливими вимогами',
+    popular: false,
+    cta: 'Зв\'язатись',
+    features: [
+      'Необмежена кількість локацій',
+      'Білий лейбл (ваш бренд)',
+      'API-інтеграція',
+      'Виділений менеджер',
+      'SLA-гарантії',
+      'Кастомна розробка',
+    ],
+    missing: [],
+  },
+];
+---
+
+<section id="pricing" class="py-24 bg-slate-950 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(99,102,241,0.1),transparent)]"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
+        <span class="text-slate-400 text-sm font-medium">Прозорі ціни</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
+        Обери свій тариф
+      </h2>
+      <p class="text-slate-400 text-lg max-w-xl mx-auto">
+        Без прихованих комісій. Підключення та налаштування — безкоштовно.
+      </p>
+    </div>
+
+    <!-- Plans -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {plans.map((plan) => (
+        <div class={`relative rounded-2xl p-7 flex flex-col transition-all duration-300 ${
+          plan.popular
+            ? 'bg-indigo-950/50 border-2 border-indigo-500/60 shadow-xl shadow-indigo-500/10'
+            : 'bg-white/[0.03] border border-white/10 hover:border-white/20'
+        }`}>
+          {/* Popular badge */}
+          {plan.popular && (
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+              <span class="bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">
+                Найпопулярніший
+              </span>
+            </div>
+          )}
+
+          <!-- Plan header -->
+          <div class="mb-6">
+            <h3 class={`text-xl font-bold mb-1 ${plan.popular ? 'text-indigo-300' : 'text-white'}`}>
+              {plan.name}
+            </h3>
+            <p class="text-slate-500 text-sm">{plan.description}</p>
+          </div>
+
+          <!-- Price -->
+          <div class="mb-7">
+            {plan.price ? (
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-extrabold text-white">{plan.price}</span>
+                <span class="text-slate-400 text-sm">{plan.period}</span>
+              </div>
+            ) : (
+              <div class="text-3xl font-extrabold text-white">{plan.period}</div>
+            )}
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="#contact"
+            class={`block text-center font-semibold py-3 rounded-xl transition-all duration-200 mb-7 cursor-pointer ${
+              plan.popular
+                ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25'
+                : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white'
+            }`}
+          >
+            {plan.cta}
+          </a>
+
+          <!-- Features -->
+          <ul class="space-y-2.5 flex-1">
+            {plan.features.map((f) => (
+              <li class="flex items-start gap-2.5 text-sm">
+                <svg class={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-indigo-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-slate-300">{f}</span>
+              </li>
+            ))}
+            {plan.missing.map((f) => (
+              <li class="flex items-start gap-2.5 text-sm opacity-40">
+                <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="text-slate-500 line-through">{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- FAQ note -->
+    <p class="text-center text-slate-600 text-sm mt-10">
+      Усі тарифи включають безкоштовне налаштування та онбординг.
+      <a href="#contact" class="text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer ml-1">Маєте питання?</a>
+    </p>
+  </div>
+</section>

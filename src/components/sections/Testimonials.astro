@@ -1,0 +1,71 @@
+---
+const testimonials = [
+  {
+    name: 'Олексій Криворучко',
+    role: 'Власник KartCity, Харків',
+    text: 'Раніше ми вели бронювання в Excel і через Telegram. Постійні накладки, загублені замовлення. З KartManager — ні одного конфлікту за пів року. Клієнти самі бронюють через застосунок, ми тільки приймаємо оплату.',
+    initials: 'ОК',
+  },
+  {
+    name: 'Марина Ткаченко',
+    role: 'Директор SpeedZone, Київ',
+    text: 'Аналітика — це просто вогонь. Тепер я точно знаю, які слоти найприбутковіші, скільки постійних клієнтів і де ми втрачаємо гроші. Окупили підписку за перший місяць.',
+    initials: 'МТ',
+  },
+  {
+    name: 'Дмитро Савченко',
+    role: 'Керуючий Мережею KartPro, Одеса',
+    text: 'У нас три локації, і раніше я збожеволів від того, щоб все контролювати. KartManager дозволяє бачити всі три клуби в одному вікні. Telegram-сповіщення — адміни завжди в курсі.',
+    initials: 'ДС',
+  },
+];
+---
+
+<section class="py-24 bg-slate-900/30 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_50%_50%,rgba(99,102,241,0.06),transparent)]"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
+        <span class="text-slate-400 text-sm font-medium">Відгуки клієнтів</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
+        Клуби, що вже <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">масштабуються</span>
+      </h2>
+      <p class="text-slate-400 text-lg max-w-xl mx-auto">
+        Понад 50 клубів вже автоматизували роботу з KartManager.
+      </p>
+    </div>
+
+    <!-- Testimonials grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <div class="bg-white/[0.03] hover:bg-white/[0.05] border border-white/10 hover:border-indigo-500/25 rounded-2xl p-7 flex flex-col gap-5 transition-all duration-300">
+          <!-- Stars -->
+          <div class="flex gap-1">
+            {Array(5).fill(null).map(() => (
+              <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            ))}
+          </div>
+
+          <!-- Quote -->
+          <p class="text-slate-400 text-sm leading-relaxed flex-1">"{t.text}"</p>
+
+          <!-- Author -->
+          <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+            <div class="w-9 h-9 bg-indigo-600/30 rounded-full flex items-center justify-center text-indigo-300 text-xs font-bold flex-shrink-0">
+              {t.initials}
+            </div>
+            <div>
+              <div class="text-white text-sm font-semibold">{t.name}</div>
+              <div class="text-slate-500 text-xs">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
