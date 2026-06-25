@@ -1,105 +1,348 @@
 ---
+const transactions = [
+  { name: 'Олексій Петренко',  time: '13 год тому', amount: '+336.60 грн', positive: true },
+  { name: 'Марина Коваль',     time: '13 год тому', amount: '+110.60 грн', positive: true },
+  { name: 'Дмитро Сидоренко',  time: '15 год тому', amount: '+3.30 грн',   positive: true },
+  { name: 'Іванна Мельник',    time: '15 год тому', amount: '-89.00 грн',  positive: false },
+  { name: 'Василь Бондаренко', time: '15 год тому', amount: '+450.00 грн', positive: true },
+];
+
+const registrations = [
+  { initials: 'ОП', name: 'Олексій Петренко',  org: 'Karting Manager', time: '39 хв тому',  color: 'bg-blue-500' },
+  { initials: 'МК', name: 'Марина Коваль',      org: 'Karting Manager', time: '15 год тому', color: 'bg-slate-500' },
+  { initials: 'ДС', name: 'Дмитро Сидоренко',  org: 'Karting Manager', time: '16 год тому', color: 'bg-cyan-600' },
+  { initials: 'ІМ', name: 'Іванна Мельник',    org: 'Karting Manager', time: '19 год тому', color: 'bg-slate-600' },
+  { initials: 'ВБ', name: 'Василь Бондаренко', org: 'Karting Manager', time: '20 год тому', color: 'bg-indigo-600' },
+];
+
+const navSections = [
+  {
+    label: 'ОГЛЯД',
+    items: [
+      { label: 'Дашборд', active: true,  icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
+      { label: 'Аналітика', active: false, icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+    ],
+  },
+  {
+    label: 'УПРАВЛІННЯ',
+    items: [
+      { label: 'Користувачі', active: false, icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+      { label: 'Локації',     active: false, icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' },
+      { label: 'Гонки',       active: false, icon: 'M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7' },
+      { label: 'Сертифікати', active: false, icon: 'M9 12l2 2 4-4M7 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l4 4v14a2 2 0 01-2 2h-2' },
+    ],
+  },
+  {
+    label: 'ФІНАНСИ',
+    items: [
+      { label: 'Бонуси',     active: false, icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+      { label: 'Лояльність', active: false, icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+    ],
+  },
+  {
+    label: 'СИСТЕМА',
+    items: [
+      { label: 'Сповіщення',   active: false, icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
+      { label: 'Налаштування', active: false, icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+    ],
+  },
+];
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background gradient mesh -->
+<section class="relative min-h-screen flex items-center overflow-hidden">
   <div class="absolute inset-0 bg-slate-950"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_80%_60%,rgba(99,102,241,0.08),transparent)]"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_40%_30%_at_20%_70%,rgba(14,165,233,0.06),transparent)]"></div>
-
-  <!-- Subtle grid pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_20%_40%,rgba(99,102,241,0.12),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_80%_70%,rgba(99,102,241,0.06),transparent)]"></div>
   <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
 
-  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-24">
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 lg:pt-28 lg:pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/25 rounded-full px-4 py-1.5 mb-8" data-animate="fade-up">
-      <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
-      <span class="text-indigo-300 text-sm font-medium">Платформа для картинг-клубів</span>
-    </div>
-
-    <!-- Headline -->
-    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]" data-animate="fade-up" data-animate-delay="1">
-      Автоматизуйте<br/>
-      <span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
-        картинг-клуб.
-      </span>
-      <br/>Повністю.
-    </h1>
-
-    <!-- Sub -->
-    <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed" data-animate="fade-up" data-animate-delay="2">
-      Забудьте про Excel, дзвінки та ручний облік. Karting Manager замінює хаос із десятків інструментів — однією системою.
-    </p>
-
-    <!-- Pain line -->
-    <p class="text-sm text-slate-500 mb-10" data-animate="fade-up" data-animate-delay="2">
-      Бронювання · POS-каса · Аналітика · Мобільний застосунок · Бонусна програма
-    </p>
-
-    <!-- CTAs -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16" data-animate="fade-up" data-animate-delay="3">
-      <a
-        href="#contact"
-        class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/35 cursor-pointer"
-      >
-        Отримати безкоштовне демо
-      </a>
-      <a
-        href="#features"
-        class="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base cursor-pointer"
-      >
-        Як це працює
-      </a>
-    </div>
-
-    <!-- Stats -->
-    <div class="flex flex-wrap justify-center gap-x-10 gap-y-4" data-animate="fade-up" data-animate-delay="4">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
+      <!-- Left: text -->
+      <div>
+        <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/25 rounded-full px-4 py-1.5 mb-8" data-animate="fade-up">
+          <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
+          <span class="text-indigo-300 text-sm font-medium">Платформа для картинг-клубів</span>
         </div>
-        <div class="text-left">
-          <div class="text-white font-bold text-lg leading-none">50+</div>
-          <div class="text-slate-500 text-xs mt-0.5">клубів</div>
-        </div>
-      </div>
 
-      <div class="w-px h-10 bg-white/10 hidden sm:block self-center"></div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]" data-animate="fade-up" data-animate-delay="1">
+          Автоматизуйте<br/>
+          <span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">картинг-клуб.</span>
+          <br/>Повністю.
+        </h1>
 
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
+        <p class="text-lg sm:text-xl text-slate-400 mb-4 leading-relaxed" data-animate="fade-up" data-animate-delay="2">
+          Забудьте про Excel, дзвінки та ручний облік. Karting Manager замінює хаос із десятків інструментів — однією системою.
+        </p>
+        <p class="text-sm text-slate-500 mb-10" data-animate="fade-up" data-animate-delay="2">
+          Бронювання · POS-каса · Аналітика · Мобільний застосунок · Бонусна програма
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-12" data-animate="fade-up" data-animate-delay="3">
+          <a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/35 cursor-pointer text-center">
+            Отримати безкоштовне демо
+          </a>
+          <a href="#features" class="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base cursor-pointer text-center">
+            Як це працює
+          </a>
         </div>
-        <div class="text-left">
-          <div class="text-white font-bold text-lg leading-none">10 000+</div>
-          <div class="text-slate-500 text-xs mt-0.5">бронювань/місяць</div>
+
+        <div class="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-white/5" data-animate="fade-up" data-animate-delay="4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg leading-none">50+</div>
+              <div class="text-slate-500 text-xs mt-0.5">клубів</div>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-white/10 self-center hidden sm:block"></div>
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg leading-none">10 000+</div>
+              <div class="text-slate-500 text-xs mt-0.5">бронювань/місяць</div>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-white/10 self-center hidden sm:block"></div>
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg leading-none">3 дні</div>
+              <div class="text-slate-500 text-xs mt-0.5">до запуску</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="w-px h-10 bg-white/10 hidden sm:block self-center"></div>
+      <!-- Right: real dashboard mockup -->
+      <div class="hidden lg:block relative select-none" data-animate="fade-right" data-animate-delay="2">
+        <div class="absolute -inset-4 bg-indigo-600/6 rounded-3xl blur-2xl"></div>
 
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <div class="text-left">
-          <div class="text-white font-bold text-lg leading-none">3 дні</div>
-          <div class="text-slate-500 text-xs mt-0.5">до запуску</div>
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/60" style="border:1px solid rgba(255,255,255,0.07); background:#0e0e12;">
+          <!-- Red accent bar -->
+          <div class="h-0.5 w-full" style="background:#dc2626;"></div>
+
+          <div class="flex" style="height:488px;">
+
+            <!-- Sidebar -->
+            <div class="w-[120px] shrink-0 flex flex-col" style="background:#111116; border-right:1px solid rgba(255,255,255,0.05);">
+              <!-- Logo -->
+              <div class="flex items-center gap-1.5 px-3 py-2.5" style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div class="w-5 h-5 bg-blue-600 rounded-md flex items-center justify-center shrink-0">
+                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="text-white font-bold leading-tight" style="font-size:9px;">Karting<br/>Manager</span>
+              </div>
+
+              <!-- Nav -->
+              <nav class="flex-1 px-1.5 py-1.5 space-y-0.5 overflow-hidden">
+                {navSections.map(section => (
+                  <div>
+                    <div class="px-1.5 pt-2 pb-0.5 text-slate-600 uppercase tracking-wider font-semibold" style="font-size:7px;">{section.label}</div>
+                    {section.items.map(item => (
+                      <div class={`flex items-center gap-1.5 px-1.5 py-[3px] rounded cursor-default ${item.active ? 'bg-blue-600/20 text-blue-400' : 'text-slate-500'}`} style="font-size:9px;">
+                        <svg class="shrink-0" style="width:9px;height:9px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}/>
+                        </svg>
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </nav>
+
+              <!-- User -->
+              <div class="px-2 py-2" style="border-top:1px solid rgba(255,255,255,0.05);">
+                <div class="flex items-center gap-1.5">
+                  <div class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
+                    <span class="text-white font-bold" style="font-size:7px;">KM</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-white font-medium truncate" style="font-size:8px;">Karting Manager</div>
+                    <div class="text-slate-500 truncate" style="font-size:7px;">Organization Admin</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main area -->
+            <div class="flex-1 flex flex-col overflow-hidden">
+
+              <!-- Topbar -->
+              <div class="flex items-center justify-between px-3 py-2" style="background:#111116; border-bottom:1px solid rgba(255,255,255,0.05);">
+                <div class="flex items-center gap-1 text-slate-400" style="font-size:9px;">
+                  <svg style="width:9px;height:9px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                  <span>Дашборд</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-1 px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);">
+                    <svg style="width:8px;height:8px;" class="text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span class="text-slate-500" style="font-size:8px;">Пошук...</span>
+                    <span class="text-slate-600" style="font-size:7px; margin-left:2px;">⌘K</span>
+                  </div>
+                  <span class="text-slate-400" style="font-size:8px;">UA</span>
+                  <div class="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold" style="font-size:7px;">KM</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1 p-3 overflow-hidden" style="background:#0e0e12;">
+
+                <!-- Page title -->
+                <div class="mb-2">
+                  <div class="text-white font-bold" style="font-size:13px;">Дашборд</div>
+                  <div class="text-slate-500" style="font-size:8px;">Ласкаво просимо, admin@kartingmanager.ua</div>
+                </div>
+
+                <!-- Stats row 1 -->
+                <div class="grid grid-cols-3 gap-1.5 mb-1.5">
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-start justify-between mb-1.5">
+                      <span class="text-slate-400 leading-tight" style="font-size:8px;">Нові користувачі<br/>сьогодні</span>
+                      <div class="w-4 h-4 rounded flex items-center justify-center shrink-0" style="background:rgba(59,130,246,0.2);">
+                        <svg style="width:8px;height:8px;" class="text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                      </div>
+                    </div>
+                    <div class="text-white font-bold" style="font-size:15px;">24</div>
+                    <div class="mt-1 inline-flex items-center px-1 py-0.5 rounded" style="background:rgba(34,197,94,0.12); font-size:7px; color:#4ade80;">↗ +20% вчора</div>
+                  </div>
+
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-start justify-between mb-1.5">
+                      <span class="text-slate-400 leading-tight" style="font-size:8px;">Активні<br/>сьогодні</span>
+                      <div class="w-4 h-4 rounded flex items-center justify-center shrink-0" style="background:rgba(34,197,94,0.2);">
+                        <svg style="width:8px;height:8px;" class="text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                      </div>
+                    </div>
+                    <div class="text-white font-bold" style="font-size:15px;">147</div>
+                    <div class="mt-1 inline-flex items-center px-1 py-0.5 rounded" style="background:rgba(34,197,94,0.12); font-size:7px; color:#4ade80;">↗ +8% вчора</div>
+                  </div>
+
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-start justify-between mb-1.5">
+                      <span class="text-slate-400 leading-tight" style="font-size:8px;">Транзакції<br/>сьогодні</span>
+                      <div class="w-4 h-4 rounded flex items-center justify-center shrink-0" style="background:rgba(168,85,247,0.2);">
+                        <svg style="width:8px;height:8px;" class="text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                      </div>
+                    </div>
+                    <div class="text-white font-bold" style="font-size:15px;">18</div>
+                    <div class="mt-1 inline-flex items-center px-1 py-0.5 rounded" style="background:rgba(34,197,94,0.12); font-size:7px; color:#4ade80;">↗ +12% вчора</div>
+                  </div>
+                </div>
+
+                <!-- Stats row 2 -->
+                <div class="grid grid-cols-3 gap-1.5 mb-2">
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-start justify-between mb-1.5">
+                      <span class="text-slate-400 leading-tight" style="font-size:8px;">Активні<br/>(7 днів)</span>
+                      <div class="w-4 h-4 rounded flex items-center justify-center shrink-0" style="background:rgba(249,115,22,0.2);">
+                        <svg style="width:8px;height:8px;" class="text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                      </div>
+                    </div>
+                    <div class="text-white font-bold" style="font-size:15px;">312</div>
+                    <div class="mt-1 inline-flex items-center px-1 py-0.5 rounded" style="background:rgba(239,68,68,0.12); font-size:7px; color:#f87171;">↘ -5% попередні 7д</div>
+                  </div>
+
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-start justify-between mb-1.5">
+                      <span class="text-slate-400 leading-tight" style="font-size:8px;">Всього<br/>користувачів</span>
+                      <div class="w-4 h-4 rounded flex items-center justify-center shrink-0" style="background:rgba(168,85,247,0.2);">
+                        <svg style="width:8px;height:8px;" class="text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      </div>
+                    </div>
+                    <div class="text-white font-bold" style="font-size:15px;">1 155</div>
+                    <div class="text-slate-500 mt-1" style="font-size:7px;">Зареєстрованих</div>
+                  </div>
+
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="text-slate-400 mb-2" style="font-size:8px;">Бонуси сьогодні</div>
+                    <div class="space-y-1.5">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1">
+                          <svg style="width:7px;height:7px;" class="text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                          <span class="text-slate-500" style="font-size:7px;">Нараховано</span>
+                        </div>
+                        <span class="text-green-400 font-medium" style="font-size:7px;">1 240 грн</span>
+                      </div>
+                      <div class="w-full" style="height:1px; background:rgba(255,255,255,0.04);"></div>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1">
+                          <svg style="width:7px;height:7px;" class="text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17H5m0 0v-8m0 8l8-8 4 4 6-6"/></svg>
+                          <span class="text-slate-500" style="font-size:7px;">Списано</span>
+                        </div>
+                        <span class="text-red-400 font-medium" style="font-size:7px;">-320 грн</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tables -->
+                <div class="grid grid-cols-2 gap-1.5">
+                  <!-- Transactions -->
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-white font-semibold" style="font-size:8px;">Останні транзакції</span>
+                      <span class="text-blue-400" style="font-size:7px;">Дивитися всі →</span>
+                    </div>
+                    <div class="space-y-1.5">
+                      {transactions.map(t => (
+                        <div class="flex items-center gap-1.5">
+                          <div class="rounded-full flex items-center justify-center shrink-0" style={`width:12px; height:12px; background:${t.positive ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)'};`}>
+                            <svg style="width:7px;height:7px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d={t.positive ? 'M5 10l7-7m0 0l7 7m-7-7v18' : 'M19 14l-7 7m0 0l-7-7m7 7V3'} style={`color:${t.positive ? '#4ade80' : '#f87171'};`}/>
+                            </svg>
+                          </div>
+                          <div class="flex-1 min-w-0">
+                            <div class="text-slate-300 truncate" style="font-size:8px;">{t.name}</div>
+                            <div class="text-slate-600" style="font-size:6px;">{t.time}</div>
+                          </div>
+                          <span class="font-medium shrink-0" style={`font-size:8px; color:${t.positive ? '#4ade80' : '#f87171'};`}>{t.amount}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- Registrations -->
+                  <div class="rounded-lg p-2" style="background:#141418; border:1px solid rgba(255,255,255,0.06);">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-white font-semibold" style="font-size:8px;">Останні реєстрації</span>
+                      <span class="text-blue-400" style="font-size:7px;">Дивитися всіх →</span>
+                    </div>
+                    <div class="space-y-1.5">
+                      {registrations.map(r => (
+                        <div class="flex items-center gap-1.5">
+                          <div class={`rounded-full flex items-center justify-center shrink-0 ${r.color}`} style="width:14px; height:14px;">
+                            <span class="text-white font-bold" style="font-size:6px;">{r.initials}</span>
+                          </div>
+                          <div class="flex-1 min-w-0">
+                            <div class="text-slate-300 truncate" style="font-size:8px;">{r.name}</div>
+                            <div class="text-slate-600" style="font-size:6px;">{r.org}</div>
+                          </div>
+                          <span class="text-slate-500 shrink-0" style="font-size:7px;">{r.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-600">
     <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
     </svg>
