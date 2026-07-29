@@ -1,63 +1,67 @@
 ---
 const plans = [
   {
-    name: 'Стартер',
-    price: '990',
+    name: 'Старт',
+    price: '6 500',
     period: 'грн/місяць',
-    description: 'Ідеально для одного клубу з базовими потребами',
+    description: 'Весь операційний цикл клубу — бронювання, каса, лояльність',
     popular: false,
     cta: 'Почати',
     features: [
-      '1 локація',
-      'До 3 адміністраторів',
-      'Бронювання трас',
-      'POS-каса (Checkbox)',
-      'Мобільний застосунок',
+      'До 3 локацій в одній організації',
+      'Бронювання трас + черга заїздів',
+      'POS-каса з фіскалізацією (Checkbox)',
+      'Академія: тренування та абонементи',
+      'Подарункові сертифікати з QR-кодом',
+      'Бонусна програма та клубні карти',
+      'Базова аналітика',
       'Email-підтримка',
     ],
     missing: [
-      'Бонусна програма',
-      'Аналітика',
-      'Мультилокаційність',
-      'Telegram-сповіщення',
+      'Розширена аналітика',
+      'Мобільний застосунок для клієнтів',
+      'Хронометраж заїздів',
     ],
   },
   {
     name: 'Бізнес',
-    price: '2 490',
+    price: '11 500',
     period: 'грн/місяць',
-    description: 'Повний набір інструментів для зростаючого бізнесу',
+    description: 'Все з тарифу Старт + доступ до хронометражу заїздів',
     popular: true,
     cta: 'Вибрати тариф',
     features: [
-      'До 3 локацій',
-      'Необмежена кількість адмінів',
-      'Бронювання трас',
-      'POS-каса + термінал',
-      'Бонусна програма',
-      'Аналітика та звіти',
-      'Подарункові сертифікати',
-      'Telegram + push-сповіщення',
+      'Все з тарифу Старт',
+      'До 3 локацій в одній організації',
+      'Розширена аналітика та звіти',
+      'Мобільний застосунок для клієнтів',
       'Пріоритетна підтримка',
+      'Можливість підключити хронометраж (окремо, за трасу)',
     ],
     missing: [],
   },
+];
+
+const timingTiers = [
   {
-    name: 'Мережа',
-    price: null,
-    period: 'Індивідуально',
-    description: 'Для великих мереж та франшиз з особливими вимогами',
-    popular: false,
-    cta: 'Зв\'язатись',
+    name: 'Базовий',
+    price: '3 500',
+    period: 'грн/місяць за трасу',
     features: [
-      'Необмежена кількість локацій',
-      'Білий лейбл (ваш бренд)',
-      'API-інтеграція',
-      'Виділений менеджер',
-      'SLA-гарантії',
-      'Кастомна розробка',
+      'Інтеграція з таймінг-хардвером на трасі',
+      'Лап-таймінг та автофіксація часів',
+      'Учасники та результати прокатних заїздів — автоматично в системі',
     ],
-    missing: [],
+  },
+  {
+    name: 'Pro',
+    price: '6 000',
+    period: 'грн/місяць за трасу',
+    features: [
+      'Все з тарифу Базовий',
+      'Проведення гонок: кваліфікація, суперфінал, фінал, командні гонки',
+      'Онлайн-тайминг — результати доступні поза локальною мережею клубу',
+    ],
   },
 ];
 ---
@@ -75,12 +79,12 @@ const plans = [
         Обери свій тариф
       </h2>
       <p class="text-slate-400 text-lg max-w-xl mx-auto">
-        Без прихованих комісій. Підключення та налаштування — безкоштовно.
+        Ціна за організацію, а не за адміністратора. Один тариф покриває до 3 локацій.
       </p>
     </div>
 
     <!-- Plans -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
       {plans.map((plan, i) => (
         <div class={`relative rounded-2xl p-7 flex flex-col transition-all duration-300 ${
           plan.popular
@@ -106,14 +110,10 @@ const plans = [
 
           <!-- Price -->
           <div class="mb-7">
-            {plan.price ? (
-              <div class="flex items-baseline gap-1">
-                <span class="text-4xl font-extrabold text-white">{plan.price}</span>
-                <span class="text-slate-400 text-sm">{plan.period}</span>
-              </div>
-            ) : (
-              <div class="text-3xl font-extrabold text-white">{plan.period}</div>
-            )}
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-white">{plan.price}</span>
+              <span class="text-slate-400 text-sm">{plan.period}</span>
+            </div>
           </div>
 
           <!-- CTA -->
@@ -149,6 +149,60 @@ const plans = [
           </ul>
         </div>
       ))}
+    </div>
+
+    <!-- Timing add-on -->
+    <div class="mt-10 max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="3">
+      <div class="rounded-2xl border border-indigo-500/25 bg-indigo-500/[0.04] p-7">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h3 class="text-xl font-bold text-white">Хронометраж заїздів</h3>
+          <span class="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs text-slate-400 font-medium">
+            Доступно на тарифі Бізнес · окремо за кожну трасу
+          </span>
+        </div>
+        <p class="text-slate-500 text-sm mb-6">
+          Інтеграція з таймінг-хардвером на трасі (петлі, трансподери). Ціна — за трасу, оскільки кожна траса підключається окремо.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          {timingTiers.map((tier) => (
+            <div class="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+              <div class="flex items-baseline justify-between mb-3">
+                <span class="text-white font-semibold">{tier.name}</span>
+                <div class="text-right">
+                  <span class="text-2xl font-extrabold text-white">{tier.price}</span>
+                  <span class="text-slate-500 text-xs block leading-tight">{tier.period}</span>
+                </div>
+              </div>
+              <ul class="space-y-2">
+                {tier.features.map((f) => (
+                  <li class="flex items-start gap-2 text-sm">
+                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-slate-300">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div class="flex items-start gap-2.5 text-sm text-slate-500 pt-5 border-t border-white/10">
+          <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Одноразовий setup 8 000–15 000 грн за трасу (підключення декодера та петель) — незалежно від обраного рівня.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Worked example -->
+    <div class="mt-6 max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="4">
+      <div class="rounded-xl bg-white/[0.03] border border-white/5 px-6 py-4 text-sm text-slate-500">
+        <span class="text-slate-400 font-medium">Приклад:</span> мережа з 3 трас на тарифі Бізнес, хронометраж потрібен на всіх трасах, а гонки (Pro) — лише на двох:
+        11 500 (Бізнес) + 3 500 (Базовий × 1 траса) + 6 000 × 2 (Pro × 2 траси) = <span class="text-slate-300 font-semibold">27 000 грн/місяць</span>.
+      </div>
     </div>
 
     <!-- FAQ note -->
