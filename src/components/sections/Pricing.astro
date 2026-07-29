@@ -47,6 +47,7 @@ const timingTiers = [
     name: 'Базовий',
     price: '3 500',
     period: 'грн/місяць за трасу',
+    note: 'Обов’язкова основа',
     features: [
       'Інтеграція з таймінг-хардвером на трасі',
       'Лап-таймінг та автофіксація часів',
@@ -54,13 +55,25 @@ const timingTiers = [
     ],
   },
   {
-    name: 'Pro',
-    price: '6 000',
+    name: 'Гонки',
+    price: '3 000',
     period: 'грн/місяць за трасу',
+    note: 'Додаток до Базового',
     features: [
       'Все з тарифу Базовий',
-      'Проведення гонок: кваліфікація, суперфінал, фінал, командні гонки',
-      'Онлайн-тайминг — результати доступні поза локальною мережею клубу',
+      'Проведення гонок: кваліфікація, суперфінал, фінал',
+      'Командні гонки',
+    ],
+  },
+  {
+    name: 'Онлайн-тайминг',
+    price: '3 000',
+    period: 'грн/місяць за трасу',
+    note: 'Додаток до Базового',
+    features: [
+      'Все з тарифу Базовий',
+      'Результати доступні поза локальною мережею клубу',
+      'Публічна сторінка результатів для гостей та вболівальників',
     ],
   },
 ];
@@ -161,19 +174,20 @@ const timingTiers = [
           </span>
         </div>
         <p class="text-slate-500 text-sm mb-6">
-          Інтеграція з таймінг-хардвером на трасі (петлі, трансподери). Ціна — за трасу, оскільки кожна траса підключається окремо.
+          Інтеграція з таймінг-хардвером на трасі (петлі, трансподери). Базовий — обов'язкова основа; Гонки та Онлайн-тайминг — незалежні один від одного додатки до нього. Ціна — за трасу, оскільки кожна траса підключається окремо.
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
           {timingTiers.map((tier) => (
             <div class="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-              <div class="flex items-baseline justify-between mb-3">
+              <div class="flex items-baseline justify-between mb-1">
                 <span class="text-white font-semibold">{tier.name}</span>
                 <div class="text-right">
                   <span class="text-2xl font-extrabold text-white">{tier.price}</span>
                   <span class="text-slate-500 text-xs block leading-tight">{tier.period}</span>
                 </div>
               </div>
+              <span class="text-indigo-400/70 text-xs font-medium block mb-3">{tier.note}</span>
               <ul class="space-y-2">
                 {tier.features.map((f) => (
                   <li class="flex items-start gap-2 text-sm">
@@ -200,8 +214,8 @@ const timingTiers = [
     <!-- Worked example -->
     <div class="mt-6 max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="4">
       <div class="rounded-xl bg-white/[0.03] border border-white/5 px-6 py-4 text-sm text-slate-500">
-        <span class="text-slate-400 font-medium">Приклад:</span> мережа з 3 трас на тарифі Бізнес, хронометраж потрібен на всіх трасах, а гонки (Pro) — лише на двох:
-        11 500 (Бізнес) + 3 500 (Базовий × 1 траса) + 6 000 × 2 (Pro × 2 траси) = <span class="text-slate-300 font-semibold">27 000 грн/місяць</span>.
+        <span class="text-slate-400 font-medium">Приклад:</span> мережа з 3 трас на тарифі Бізнес, хронометраж (Базовий) потрібен на всіх трасах, гонки — на двох, а онлайн-тайминг — лише на одній:
+        11 500 (Бізнес) + 3 500 × 3 (Базовий × 3 траси) + 3 000 × 2 (Гонки × 2 траси) + 3 000 × 1 (Онлайн-тайминг × 1 траса) = <span class="text-slate-300 font-semibold">31 000 грн/місяць</span>.
       </div>
     </div>
 
