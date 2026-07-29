@@ -8,7 +8,7 @@ const plans = [
     popular: false,
     cta: 'Почати',
     features: [
-      'До 3 локацій в одній організації',
+      'До 2 локацій в одній організації',
       'Бронювання трас + черга заїздів',
       'POS-каса з фіскалізацією (Checkbox)',
       'Академія: тренування та абонементи',
@@ -37,6 +37,22 @@ const plans = [
       'Мобільний застосунок для клієнтів',
       'Пріоритетна підтримка',
       'Можливість підключити хронометраж (окремо, за трасу)',
+    ],
+    missing: [],
+  },
+  {
+    name: 'Ентерпрайз',
+    price: 'Індивідуально',
+    period: '',
+    description: 'Мережа від 4 локацій — власні умови під ваш масштаб',
+    popular: false,
+    custom: true,
+    cta: 'Зв\'язатися з нами',
+    features: [
+      'Все з тарифу Бізнес',
+      '4+ локацій в одній організації',
+      'Персональний менеджер',
+      'Кастомні інтеграції та SLA',
     ],
     missing: [],
   },
@@ -92,12 +108,12 @@ const timingTiers = [
         Обери свій тариф
       </h2>
       <p class="text-slate-400 text-lg max-w-xl mx-auto">
-        Ціна за організацію, а не за адміністратора. Один тариф покриває до 3 локацій.
+        Ціна за організацію, а не за адміністратора. Старт — до 2 локацій, Бізнес — до 3, більші мережі — за індивідуальними умовами.
       </p>
     </div>
 
     <!-- Plans -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
       {plans.map((plan, i) => (
         <div class={`relative rounded-2xl p-7 flex flex-col transition-all duration-300 ${
           plan.popular
@@ -124,7 +140,7 @@ const timingTiers = [
           <!-- Price -->
           <div class="mb-7">
             <div class="flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-white">{plan.price}</span>
+              <span class={plan.custom ? 'text-3xl font-extrabold text-white' : 'text-4xl font-extrabold text-white'}>{plan.price}</span>
               <span class="text-slate-400 text-sm">{plan.period}</span>
             </div>
           </div>
