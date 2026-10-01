@@ -9,34 +9,38 @@ const plans = [
     cta: 'Почати',
     features: [
       'До 2 локацій в одній організації',
-      'Бронювання трас + черга заїздів',
-      'POS-каса з фіскалізацією (Checkbox)',
-      'Академія: тренування та абонементи',
-      'Подарункові сертифікати з QR-кодом',
-      'Бонусна програма та клубні карти',
-      'Базова аналітика',
+      'Прокат: сітка й черга заїздів',
+      'Каса з Checkbox і банківським терміналом',
+      'Гонки, тренування та академія',
+      'Пакети, сертифікати з QR, клубні карти',
+      'Бонусна програма та знижки',
+      'Фінанси, табель і зарплата',
+      'Дашборд «Потребує уваги»',
       'Email-підтримка',
     ],
     missing: [
       'Розширена аналітика',
+      'CRM і реферальна програма',
       'Мобільний застосунок для клієнтів',
-      'Хронометраж заїздів',
+      'Таймінг заїздів',
     ],
   },
   {
     name: 'Бізнес',
     price: '11 500',
     period: 'грн/місяць',
-    description: 'Все з тарифу Старт + доступ до хронометражу заїздів',
+    description: 'Все з тарифу Старт + маркетинг, застосунок і таймінг',
     popular: true,
     cta: 'Вибрати тариф',
     features: [
       'Все з тарифу Старт',
       'До 3 локацій в одній організації',
       'Розширена аналітика та звіти',
+      'CRM: UTM-посилання, ліди, витрати на рекламу',
+      'Реферальна програма та QR маршалів',
       'Мобільний застосунок для клієнтів',
       'Пріоритетна підтримка',
-      'Можливість підключити хронометраж (окремо, за трасу)',
+      'Можливість підключити таймінг (окремо, за трасу)',
     ],
     missing: [],
   },
@@ -65,7 +69,7 @@ const timingTiers = [
     period: 'грн/місяць за трасу',
     note: 'Обов’язкова основа',
     features: [
-      'Інтеграція з таймінг-хардвером на трасі',
+      'Підключення сервісу таймінгу, прив’язка ваших трас',
       'Лап-таймінг та автофіксація часів',
       'Учасники та результати прокатних заїздів — автоматично в системі',
     ],
@@ -82,7 +86,7 @@ const timingTiers = [
     ],
   },
   {
-    name: 'Онлайн-тайминг',
+    name: 'Онлайн-таймінг',
     price: '3 000',
     period: 'грн/місяць за трасу',
     note: 'Додаток до Базового',
@@ -96,7 +100,7 @@ const timingTiers = [
 ---
 
 <section id="pricing" class="pt-10 pb-10 bg-slate-900 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(99,102,241,0.1),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(57,115,255,0.1),transparent)]"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
@@ -104,7 +108,7 @@ const timingTiers = [
       <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
         <span class="text-slate-400 text-sm font-medium">Прозорі ціни</span>
       </div>
-      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">
         Обери свій тариф
       </h2>
       <p class="text-slate-400 text-lg max-w-xl mx-auto">
@@ -117,13 +121,13 @@ const timingTiers = [
       {plans.map((plan, i) => (
         <div class={`relative rounded-2xl p-7 flex flex-col transition-all duration-300 ${
           plan.popular
-            ? 'bg-indigo-950/50 border-2 border-indigo-500/60 shadow-xl shadow-indigo-500/10'
+            ? 'bg-brand-950/50 border-2 border-brand-500/60 shadow-xl shadow-brand-500/10'
             : 'bg-white/[0.04] border border-white/10 hover:border-white/20'
         }`} data-animate="zoom-in" data-animate-delay={i + 1}>
           {/* Popular badge */}
           {plan.popular && (
             <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-              <span class="bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">
+              <span class="bg-brand-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">
                 Найпопулярніший
               </span>
             </div>
@@ -131,7 +135,7 @@ const timingTiers = [
 
           <!-- Plan header -->
           <div class="mb-6">
-            <h3 class={`text-xl font-bold mb-1 ${plan.popular ? 'text-indigo-300' : 'text-white'}`}>
+            <h3 class={`text-xl font-bold mb-1 ${plan.popular ? 'text-brand-300' : 'text-white'}`}>
               {plan.name}
             </h3>
             <p class="text-slate-500 text-sm">{plan.description}</p>
@@ -140,7 +144,7 @@ const timingTiers = [
           <!-- Price -->
           <div class="mb-7">
             <div class="flex items-baseline gap-1">
-              <span class={plan.custom ? 'text-3xl font-extrabold text-white' : 'text-4xl font-extrabold text-white'}>{plan.price}</span>
+              <span class={plan.custom ? 'text-3xl font-bold text-white' : 'text-4xl font-bold text-white'}>{plan.price}</span>
               <span class="text-slate-400 text-sm">{plan.period}</span>
             </div>
           </div>
@@ -150,7 +154,7 @@ const timingTiers = [
             href="#contact"
             class={`block text-center font-semibold py-3 rounded-xl transition-all duration-200 mb-7 cursor-pointer ${
               plan.popular
-                ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25'
+                ? 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/25'
                 : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white'
             }`}
           >
@@ -161,7 +165,7 @@ const timingTiers = [
           <ul class="space-y-2.5 flex-1">
             {plan.features.map((f) => (
               <li class="flex items-start gap-2.5 text-sm">
-                <svg class={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-indigo-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-brand-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 <span class="text-slate-300">{f}</span>
@@ -182,15 +186,15 @@ const timingTiers = [
 
     <!-- Timing add-on -->
     <div class="mt-10 max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="3">
-      <div class="rounded-2xl border border-indigo-500/25 bg-indigo-500/[0.04] p-7">
+      <div class="rounded-2xl border border-brand-500/25 bg-brand-500/[0.04] p-7">
         <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-          <h3 class="text-xl font-bold text-white">Хронометраж заїздів</h3>
+          <h3 class="text-xl font-bold text-white">Таймінг заїздів</h3>
           <span class="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs text-slate-400 font-medium">
             Доступно на тарифі Бізнес · окремо за кожну трасу
           </span>
         </div>
         <p class="text-slate-500 text-sm mb-6">
-          Інтеграція з таймінг-хардвером на трасі (петлі, трансподери). Базовий — обов'язкова основа; Гонки та Онлайн-тайминг — незалежні один від одного додатки до нього. Ціна — за трасу, оскільки кожна траса підключається окремо.
+          Інтеграція з таймінг-хардвером на трасі (петлі, трансподери). Базовий — обов'язкова основа; Гонки та Онлайн-таймінг — незалежні один від одного додатки до нього. Ціна — за трасу, оскільки кожна траса підключається окремо.
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
@@ -199,15 +203,15 @@ const timingTiers = [
               <div class="flex items-baseline justify-between mb-1">
                 <span class="text-white font-semibold">{tier.name}</span>
                 <div class="text-right">
-                  <span class="text-2xl font-extrabold text-white">{tier.price}</span>
+                  <span class="text-2xl font-bold text-white">{tier.price}</span>
                   <span class="text-slate-500 text-xs block leading-tight">{tier.period}</span>
                 </div>
               </div>
-              <span class="text-indigo-400/70 text-xs font-medium block mb-3">{tier.note}</span>
+              <span class="text-brand-400/70 text-xs font-medium block mb-3">{tier.note}</span>
               <ul class="space-y-2">
                 {tier.features.map((f) => (
                   <li class="flex items-start gap-2 text-sm">
-                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                     <span class="text-slate-300">{f}</span>
@@ -219,7 +223,7 @@ const timingTiers = [
         </div>
 
         <div class="flex items-start gap-2.5 text-sm text-slate-500 pt-5 border-t border-white/10">
-          <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span>Одноразовий setup 8 000–15 000 грн за трасу (підключення декодера та петель) — незалежно від обраного рівня.</span>
@@ -230,15 +234,15 @@ const timingTiers = [
     <!-- Worked example -->
     <div class="mt-6 max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="4">
       <div class="rounded-xl bg-white/[0.03] border border-white/5 px-6 py-4 text-sm text-slate-500">
-        <span class="text-slate-400 font-medium">Приклад:</span> мережа з 3 трас на тарифі Бізнес, хронометраж (Базовий) потрібен на всіх трасах, гонки — на двох, а онлайн-тайминг — лише на одній:
-        11 500 (Бізнес) + 3 500 × 3 (Базовий × 3 траси) + 3 000 × 2 (Гонки × 2 траси) + 3 000 × 1 (Онлайн-тайминг × 1 траса) = <span class="text-slate-300 font-semibold">31 000 грн/місяць</span>.
+        <span class="text-slate-400 font-medium">Приклад:</span> мережа з 3 трас на тарифі Бізнес, таймінг (Базовий) потрібен на всіх трасах, гонки — на двох, а онлайн-таймінг — лише на одній:
+        11 500 (Бізнес) + 3 500 × 3 (Базовий × 3 траси) + 3 000 × 2 (Гонки × 2 траси) + 3 000 × 1 (Онлайн-таймінг × 1 траса) = <span class="text-slate-300 font-semibold">31 000 грн/місяць</span>.
       </div>
     </div>
 
     <!-- FAQ note -->
     <p class="text-center text-slate-600 text-sm mt-10">
       Усі тарифи включають безкоштовне налаштування та онбординг.
-      <a href="#contact" class="text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer ml-1">Маєте питання?</a>
+      <a href="#contact" class="text-brand-400 hover:text-brand-300 transition-colors cursor-pointer ml-1">Маєте питання?</a>
     </p>
   </div>
 </section>

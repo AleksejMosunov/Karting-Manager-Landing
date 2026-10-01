@@ -2,7 +2,7 @@
 ---
 
 <section id="contact" class="pt-10 pb-10 bg-slate-900 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(99,102,241,0.08),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(57,115,255,0.08),transparent)]"></div>
 
   <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -12,9 +12,9 @@
         <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6">
           <span class="text-slate-400 text-sm font-medium">Безкоштовне демо</span>
         </div>
-        <h2 class="text-4xl sm:text-5xl font-extrabold mb-5 leading-tight">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-5 leading-tight">
           Готові побачити<br/>
-          <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Karting Manager у дії?</span>
+          <span class="bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">Karting Manager у дії?</span>
         </h2>
         <p class="text-slate-400 text-lg mb-8 leading-relaxed">
           Залиште контакти — проведемо персональне демо, відповімо на питання та допоможемо підібрати тариф.
@@ -28,7 +28,7 @@
             'Налаштування та онбординг входить у ціну',
           ].map((item) => (
             <li class="flex items-center gap-3 text-sm text-slate-400">
-              <svg class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
               {item}
@@ -52,7 +52,7 @@
                 type="text"
                 required
                 placeholder="Олексій"
-                class="w-full bg-slate-800/80 border border-white/10 focus:border-indigo-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
+                class="w-full bg-slate-800/80 border border-white/10 focus:border-brand-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
               />
             </div>
             <div>
@@ -63,7 +63,7 @@
                 type="tel"
                 required
                 placeholder="+38 (067) 000-00-00"
-                class="w-full bg-slate-800/80 border border-white/10 focus:border-indigo-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
+                class="w-full bg-slate-800/80 border border-white/10 focus:border-brand-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
               />
             </div>
           </div>
@@ -75,7 +75,7 @@
               name="club"
               type="text"
               placeholder="Картинг Арена"
-              class="w-full bg-slate-800/80 border border-white/10 focus:border-indigo-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
+              class="w-full bg-slate-800/80 border border-white/10 focus:border-brand-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 text-sm"
             />
           </div>
 
@@ -86,13 +86,13 @@
               name="message"
               rows="3"
               placeholder="Розкажіть про ваш клуб і що вас цікавить..."
-              class="w-full bg-slate-800/80 border border-white/10 focus:border-indigo-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 resize-none text-sm"
+              class="w-full bg-slate-800/80 border border-white/10 focus:border-brand-500/60 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none transition-colors duration-200 resize-none text-sm"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-base shadow-lg shadow-indigo-600/20 hover:shadow-indigo-500/30 cursor-pointer"
+            class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-base shadow-lg shadow-brand-600/20 hover:shadow-brand-500/30 cursor-pointer"
           >
             Отримати безкоштовне демо
           </button>
@@ -118,7 +118,7 @@
     await new Promise((r) => setTimeout(r, 800));
 
     status.textContent = 'Заявку отримано! Зв\'яжемося з вами найближчим часом.';
-    status.className = 'text-center text-sm text-indigo-400';
+    status.className = 'text-center text-sm text-brand-400';
     form.reset();
   });
 </script>

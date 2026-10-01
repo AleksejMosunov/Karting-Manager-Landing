@@ -1,25 +1,25 @@
 ---
 const before = [
-  'Excel-таблиці замість календаря бронювань',
+  'Excel-таблиці замість сітки заїздів',
   'Дзвінки й месенджери для підтвердження',
-  'Пропущені брони — втрачені гроші',
-  'Немає аналітики — незрозуміло що приносить дохід',
-  'Каса окремо, облік окремо, звіт вручну',
+  'Абонементи й сертифікати — у зошиті, залишки рахують вручну',
+  'Немає аналітики — незрозуміло, що приносить дохід',
+  'Каса окремо, термінал окремо, звіт і зарплата вручну',
   'Клієнт не знає про акції та бонуси',
 ];
 
 const after = [
-  'Онлайн-календар з автоматичним підтвердженням',
-  'Мобільний застосунок — клієнти бронюють самі',
-  'Нагадування знижують кількість no-show на 60%',
-  'Дашборд у реальному часі: виручка, завантаженість',
-  'Фіскальний чек одним кліком з вбудованої каси',
-  'Автоматичні бонуси й push-сповіщення для клієнтів',
+  'Сітка й черга заїздів: вільні місця видно одразу',
+  'Мобільний застосунок — клієнти бронюють і реєструються самі',
+  'Пакети, сертифікати й клубні карти — на одному екрані, списуються самі',
+  '«Потребує уваги»: неоплачені броні, забуті зміни, баланси, що згорають',
+  'Фіскальний чек і оплата через термінал — з одного екрана',
+  'Автоматичні бонуси, реферали й push-сповіщення для клієнтів',
 ];
 ---
 
 <section class="pt-10 pb-10 bg-slate-900 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(99,102,241,0.07),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(57,115,255,0.07),transparent)]"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
@@ -27,7 +27,7 @@ const after = [
       <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
         <span class="text-slate-400 text-sm font-medium">Що змінюється</span>
       </div>
-      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">
         Хаос <span class="text-slate-600">проти</span> системи
       </h2>
       <p class="text-slate-400 text-lg max-w-xl mx-auto">
@@ -60,19 +60,19 @@ const after = [
       </div>
 
       <!-- After -->
-      <div class="bg-indigo-950/30 border border-indigo-800/30 rounded-2xl p-8" data-animate="fade-right" data-animate-delay="2">
+      <div class="bg-brand-950/30 border border-brand-800/30 rounded-2xl p-8" data-animate="fade-right" data-animate-delay="2">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-9 h-9 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-9 h-9 bg-brand-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-indigo-300">З Karting Manager</h3>
+          <h3 class="text-xl font-bold text-brand-300">З Karting Manager</h3>
         </div>
         <ul class="space-y-3.5">
           {after.map((item) => (
             <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-brand-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
               <span class="text-slate-300 text-sm leading-relaxed">{item}</span>
@@ -84,7 +84,7 @@ const after = [
 
     <!-- Bottom CTA -->
     <div class="text-center mt-12">
-      <a href="#contact" class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors duration-200 cursor-pointer">
+      <a href="#contact" class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-semibold transition-colors duration-200 cursor-pointer">
         Хочу систему, а не хаос
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -1,7 +1,21 @@
 @import "tailwindcss";
 
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+/* Акцент і шрифт — ті самі, що в адмінці Karting Manager
+   (frontend/app/globals.css: --primary = oklch(0.55 0.22 264), Ubuntu).
+   600 — primary світлої теми, 500 — primary темної. */
+@theme {
+  --font-sans: 'Ubuntu', ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: oklch(0.97 0.014 264);
+  --color-brand-100: oklch(0.93 0.034 264);
+  --color-brand-200: oklch(0.87 0.065 264);
+  --color-brand-300: oklch(0.79 0.115 264);
+  --color-brand-400: oklch(0.69 0.17 264);
+  --color-brand-500: oklch(0.60 0.22 264);
+  --color-brand-600: oklch(0.55 0.22 264);
+  --color-brand-700: oklch(0.48 0.2 264);
+  --color-brand-800: oklch(0.40 0.16 264);
+  --color-brand-900: oklch(0.34 0.12 264);
+  --color-brand-950: oklch(0.25 0.08 264);
 }
 
 @keyframes gradient-shift {

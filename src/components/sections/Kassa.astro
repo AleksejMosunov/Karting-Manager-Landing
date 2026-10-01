@@ -1,48 +1,78 @@
 ---
 const fiscalItems = [
-  { label: 'Прокат', desc: 'дорослий, дитячий, подвійний' },
-  { label: 'Заїзди та гонки', desc: 'разові та групові старти' },
-  { label: 'Академія', desc: 'тренування та абонементи' },
-  { label: 'Сертифікати', desc: 'подарункові, з QR-кодом' },
-  { label: 'Товари', desc: 'мерч, напої, аксесуари' },
-  { label: 'Клубні карти', desc: 'абонементи та депозити' },
+  { label: 'Прокат', desc: 'заїзд підбирається сам' },
+  { label: 'Гонки й тренування', desc: 'учасники та команди' },
+  { label: 'Академія', desc: 'заняття й записи' },
+  { label: 'Пакети', desc: 'візит із пакета — 0 ₴' },
+  { label: 'Сертифікати', desc: 'продаж і списання за QR' },
+  { label: 'Клубні карти', desc: 'знижка на клієнта' },
+  { label: 'Товари', desc: 'залишки й мінімум' },
+  { label: 'Інші послуги', desc: 'оренда, свята, теорія' },
 ];
 
-const timeSlots = [
-  { time: '11:00', free: '8/8' },
-  { time: '11:15', free: '8/8' },
-  { time: '11:30', free: '8/8' },
-  { time: '14:30', free: '8/8' },
-  { time: '18:00', free: '8/8' },
-  { time: '18:30', free: '5/8', low: true },
+const capabilities = [
+  'Оплата карткою через термінал (Checkbox PayLink)',
+  'Стан Checkbox і термінала в шапці каси',
+  'X- і Z-звіти на чековий принтер',
+  'Чек повернення друкується одразу',
+  'Внесення, вилучення, інкасація зі службовим чеком',
+  'Офлайн-режим Checkbox з резервними кодами',
+  'Знижки, бонуси й пакети в одному кошику',
+  '«Вже відкатав» — оплата заїзду, що вже відбувся',
+];
+
+const catalogTabs = ['Прокат', 'Гонки', 'Тренування', 'Академія', 'Товари', 'Сертифікати', 'Клубні карти'];
+
+const services = [
+  { name: 'Прокат дорослий', price: '600 ₴', active: true },
+  { name: 'Прокат дитячий', price: '450 ₴' },
+  { name: 'Прокат подвійний', price: '750 ₴' },
+  { name: 'Гран-прі 20 хв', price: '1 100 ₴' },
+  { name: 'Теорія + заїзд', price: '900 ₴' },
+  { name: 'Оренда треку', price: '9 000 ₴' },
+];
+
+const slots = [
+  { time: '16:10', free: '2/8', low: true },
+  { time: '16:20', free: '5/8' },
+  { time: '16:30', free: '8/8' },
+  { time: '16:40', free: '8/8' },
+  { time: '16:50', free: '7/8' },
+  { time: '17:00', free: '8/8' },
+];
+
+const cart = [
+  { name: 'Прокат дорослий', meta: '×2 · заїзд 16:20', price: '1 200 ₴' },
+  { name: 'Прокат дорослий', meta: 'з пакета «Академія 10»', price: '0 ₴', pkg: true },
+  { name: 'Вода 0,5', meta: '×2', price: '70 ₴' },
 ];
 
 const queue = [
-  { n: 30, time: '18:15', people: null },
-  { n: 31, time: '18:30', people: 3 },
-  { n: 32, time: '18:45', people: null },
+  { n: 41, time: '16:00', status: 'run', pilots: [['Коваль', '7'], ['Мельник', '3'], ['Бондар', '12']], fill: '8/8' },
+  { n: 42, time: '16:10', status: 'next', pilots: [['Шевчук', '5'], ['Ткач', '—']], fill: '6/8' },
+  { n: 43, time: '16:20', status: 'open', pilots: [], fill: '3/8' },
 ];
 ---
 
 <section id="kassa" class="pt-10 pb-10 bg-slate-900 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(99,102,241,0.08),transparent)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(57,115,255,0.08),transparent)]"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-14" data-animate="fade-up">
       <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
-        <span class="text-slate-400 text-sm font-medium">Робоче місце адміністратора</span>
+        <span class="text-slate-400 text-sm font-medium">Робоче місце касира</span>
       </div>
-      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">
-        Одна каса <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">на весь клуб</span>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+        Одна каса <span class="bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">на весь клуб</span>
       </h2>
       <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-        Каса фіскалізує кожен продаж — прокат, заїзди, тренування академії, сертифікати, товари та клубні карти. Один чек, один інтерфейс, без перемикання між системами.
+        Касир знаходить клієнта за телефоном чи QR, бачить його бонуси й пакети, ставить людей у заїзд і приймає оплату — готівкою, карткою через термінал або змішано. Один чек, один екран.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
       {fiscalItems.map((item, i) => (
-        <div class="flex items-start gap-3 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3" data-animate="fade-up" data-animate-delay={(i % 3) + 1}>
+        <div class="flex items-start gap-3 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3" data-animate="fade-up" data-animate-delay={(i % 4) + 1}>
           <div class="w-6 h-6 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
           </div>
@@ -54,102 +84,144 @@ const queue = [
       ))}
     </div>
 
-    <!-- Real POS mockup -->
+    <!-- POS mockup: екран «Продаж» (світла тема) -->
     <div class="hidden md:block relative select-none" data-animate="fade-up" data-animate-delay="2">
-      <div class="absolute -inset-4 bg-indigo-600/8 rounded-3xl blur-2xl"></div>
+      <div class="absolute -inset-4 bg-brand-600/10 rounded-3xl blur-2xl"></div>
 
-      <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50" style="border:1px solid rgba(255,255,255,0.08); background:#fafafa;">
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50" style="border:1px solid rgba(255,255,255,0.08); background:#fafafa; font-family:'Ubuntu',sans-serif;">
 
         <!-- Top bar -->
-        <div class="flex items-center justify-between px-4 py-2.5" style="background:#ffffff; border-bottom:1px solid #e5e7eb;">
+        <div class="flex items-center justify-between px-4 py-2.5" style="background:#ffffff; border-bottom:1px solid #ebebeb;">
           <div class="flex items-center gap-4">
-            <div class="flex items-center gap-1.5">
-              <div class="w-5 h-5 bg-indigo-600 rounded-md flex items-center justify-center shrink-0">
-                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              </div>
-              <span class="font-bold" style="font-size:11px; color:#111827;">Каса</span>
-            </div>
+            <span class="font-bold" style="font-size:11px; color:#171717;">Каса</span>
             <div class="flex items-center gap-1">
-              <div class="px-2.5 py-1 rounded-md bg-indigo-600 text-white font-semibold" style="font-size:9px;">Продаж</div>
-              <div class="px-2.5 py-1 rounded-md text-slate-500 font-medium" style="font-size:9px;">Готівка</div>
-              <div class="px-2.5 py-1 rounded-md text-slate-500 font-medium" style="font-size:9px;">Чеки</div>
-              <div class="px-2.5 py-1 rounded-md text-slate-500 font-medium" style="font-size:9px;">Зміна</div>
+              <div class="px-2.5 py-1 rounded-md text-white font-medium" style="font-size:9px; background:#2b62ef;">Продаж</div>
+              <div class="px-2.5 py-1 rounded-md font-medium" style="font-size:9px; color:#737373;">Готівка</div>
+              <div class="px-2.5 py-1 rounded-md font-medium" style="font-size:9px; color:#737373;">Чеки</div>
+              <div class="px-2.5 py-1 rounded-md font-medium" style="font-size:9px; color:#737373;">Зміна</div>
             </div>
           </div>
           <div class="flex items-center gap-3" style="font-size:8px;">
-            <span class="flex items-center gap-1 text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Каса не підключена</span>
-            <span class="flex items-center gap-1 text-red-500"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Друк офлайн</span>
-            <span class="text-slate-400">← Адмін</span>
+            <span class="flex items-center gap-1" style="color:#15803d;"><span class="w-1.5 h-1.5 rounded-full" style="background:#22a05a;"></span>Checkbox</span>
+            <span class="flex items-center gap-1" style="color:#15803d;"><span class="w-1.5 h-1.5 rounded-full" style="background:#22a05a;"></span>Термінал на зв'язку</span>
+            <span class="flex items-center gap-1" style="color:#15803d;"><span class="w-1.5 h-1.5 rounded-full" style="background:#22a05a;"></span>Друк</span>
+            <span style="color:#a3a3a3;">← Адмін-панель</span>
           </div>
         </div>
 
-        <div class="flex" style="height:400px;">
+        <div class="flex" style="height:370px;">
 
           <!-- Cart -->
-          <div class="w-[130px] shrink-0 p-3" style="background:#ffffff; border-right:1px solid #e5e7eb;">
-            <div class="flex items-center gap-1 mb-3 text-slate-700 font-semibold" style="font-size:9px;">
-              <svg style="width:10px;height:10px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              Кошик
+          <div class="w-[210px] shrink-0 p-3 flex flex-col" style="background:#ffffff; border-right:1px solid #ebebeb;">
+            <!-- Client -->
+            <div class="rounded-lg p-2 mb-2.5" style="background:#f5f7ff; border:1px solid #dfe6ff;">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold" style="font-size:8.5px; color:#171717;">Олена Коваль</span>
+                <span style="font-size:7px; color:#737373;">067 ••• 41 18</span>
+              </div>
+              <div class="flex items-center gap-2 mt-1" style="font-size:7px; color:#525252;">
+                <span>Бонуси: <b style="color:#171717;">340</b></span>
+                <span>Група: Silver</span>
+              </div>
+              <div class="rounded-md mt-1.5 px-1.5 py-1" style="background:#ffffff; border:1px solid #e5e5e5;">
+                <div class="font-medium" style="font-size:7.5px; color:#171717;">Академія 10</div>
+                <div style="font-size:6.5px; color:#737373;">лишилось 7 з 10 · до 30.11</div>
+              </div>
             </div>
-            <div class="text-center text-slate-400 mt-8 leading-snug" style="font-size:8px;">Додайте позиції з каталогу</div>
+
+            <div class="font-semibold mb-1.5" style="font-size:8.5px; color:#404040;">Кошик</div>
+            <div class="space-y-1.5 flex-1">
+              {cart.map(c => (
+                <div class="flex items-start justify-between gap-1">
+                  <div class="min-w-0">
+                    <div style="font-size:8px; color:#171717;">{c.name}</div>
+                    <div style={`font-size:6.5px; color:${c.pkg ? '#2b62ef' : '#737373'};`}>{c.meta}</div>
+                  </div>
+                  <span class="font-medium shrink-0" style="font-size:8px; color:#171717;">{c.price}</span>
+                </div>
+              ))}
+              <div class="flex justify-between pt-1" style="font-size:7px; color:#15803d; border-top:1px dashed #e5e5e5;">
+                <span>Бонуси</span><span>−120 ₴</span>
+              </div>
+            </div>
+
+            <div class="flex items-baseline justify-between mb-2">
+              <span class="font-semibold" style="font-size:9px; color:#404040;">Разом</span>
+              <span class="font-bold" style="font-size:13px; color:#171717;">1 150 ₴</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1 mb-1.5">
+              <div class="text-center rounded-md py-1" style="font-size:7.5px; color:#525252; border:1px solid #e5e5e5;">Готівка</div>
+              <div class="text-center rounded-md py-1 font-semibold" style="font-size:7.5px; color:#2b62ef; border:1.5px solid #2b62ef; background:#f5f7ff;">Картка</div>
+              <div class="text-center rounded-md py-1" style="font-size:7.5px; color:#525252; border:1px solid #e5e5e5;">Змішано</div>
+            </div>
+            <div class="mb-1.5" style="font-size:6.5px; color:#737373;">Сума піде на термінал</div>
+            <div class="rounded-md py-1.5 text-center text-white font-semibold" style="font-size:8.5px; background:#2b62ef;">Відправити на термінал</div>
           </div>
 
           <!-- Catalog -->
           <div class="flex-1 p-3 overflow-hidden" style="background:#fafafa;">
-            <div class="flex items-center gap-3 mb-3 text-slate-500 font-medium" style="font-size:8.5px;">
-              <span class="text-indigo-600 font-bold pb-1" style="border-bottom:1.5px solid #4f46e5;">Заїзди</span>
-              <span>Події</span>
-              <span>Товари</span>
-              <span>Сертифікати</span>
-              <span>Клубні карти</span>
+            <div class="flex items-center gap-3 mb-3 font-medium" style="font-size:8.5px; color:#737373;">
+              {catalogTabs.map((tab, i) => (
+                <span class="pb-1" style={i === 0 ? 'color:#2b62ef; font-weight:700; border-bottom:1.5px solid #2b62ef;' : ''}>{tab}</span>
+              ))}
             </div>
 
             <div class="grid grid-cols-3 gap-1.5 mb-3">
-              <div class="rounded-lg p-2" style="background:#eef2ff; border:1.5px solid #4f46e5;">
-                <div class="w-1.5 h-1.5 rounded-full bg-indigo-600 mb-1"></div>
-                <div class="font-semibold text-slate-800" style="font-size:8px;">Прокат дорослий</div>
-                <div class="text-slate-500 font-medium mt-0.5" style="font-size:8px;">600 ₴</div>
-              </div>
-              <div class="rounded-lg p-2" style="background:#ffffff; border:1px solid #e5e7eb;">
-                <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mb-1"></div>
-                <div class="font-semibold text-slate-800" style="font-size:8px;">Прокат дитячий</div>
-                <div class="text-slate-500 font-medium mt-0.5" style="font-size:8px;">550 ₴</div>
-              </div>
-              <div class="rounded-lg p-2" style="background:#ffffff; border:1px solid #e5e7eb;">
-                <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mb-1"></div>
-                <div class="font-semibold text-slate-800" style="font-size:8px;">Прокат подвійний</div>
-                <div class="text-slate-500 font-medium mt-0.5" style="font-size:8px;">600 ₴</div>
-              </div>
-            </div>
-
-            <div class="text-slate-400 mb-1.5" style="font-size:7.5px;">Оберіть слот</div>
-            <div class="grid grid-cols-6 gap-1">
-              {timeSlots.map(slot => (
-                <div class={`rounded-md text-center py-1 ${slot.low ? '' : ''}`} style={`background:#f0fdf4; border:1px solid #bbf7d0;`}>
-                  <div class="font-semibold text-slate-800" style="font-size:7.5px;">{slot.time}</div>
-                  <div class="text-emerald-600" style="font-size:6.5px;">{slot.free}</div>
+              {services.map(s => (
+                <div class="rounded-lg p-2" style={s.active ? 'background:#f5f7ff; border:1.5px solid #2b62ef;' : 'background:#ffffff; border:1px solid #ebebeb;'}>
+                  <div class="font-semibold" style="font-size:8px; color:#262626;">{s.name}</div>
+                  <div class="font-medium mt-0.5" style="font-size:8px; color:#737373;">{s.price}</div>
                 </div>
               ))}
+            </div>
+
+            <div class="flex items-center justify-between mb-1.5">
+              <span style="font-size:7.5px; color:#a3a3a3;">Заїзд — підбереться сам, або оберіть</span>
+              <span class="px-1.5 py-0.5 rounded" style="font-size:6.5px; color:#525252; background:#f0f0f0;">Вже відкатав</span>
+            </div>
+            <div class="grid grid-cols-6 gap-1">
+              {slots.map(slot => (
+                <div class="rounded-md text-center py-1" style={slot.low ? 'background:#fffbeb; border:1px solid #fde68a;' : 'background:#f0fdf4; border:1px solid #bbf7d0;'}>
+                  <div class="font-semibold" style="font-size:7.5px; color:#262626;">{slot.time}</div>
+                  <div style={`font-size:6.5px; color:${slot.low ? '#b45309' : '#16a34a'};`}>{slot.free}</div>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-3 rounded-lg px-2.5 py-2 flex items-center gap-2" style="background:#ffffff; border:1px solid #ebebeb;">
+              <svg style="width:10px;height:10px;color:#2b62ef;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              <span style="font-size:7.5px; color:#737373;">Скан QR або телефон клієнта</span>
             </div>
           </div>
 
           <!-- Queue -->
-          <div class="w-[190px] shrink-0 p-3 overflow-hidden" style="background:#ffffff; border-left:1px solid #e5e7eb;">
-            <div class="flex items-center justify-between mb-3">
-              <span class="font-semibold text-slate-700" style="font-size:8.5px;">Черга заїздів</span>
-              <span class="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-semibold" style="font-size:7px;">36 активних</span>
+          <div class="w-[200px] shrink-0 p-3 overflow-hidden" style="background:#ffffff; border-left:1px solid #ebebeb;">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="font-semibold" style="font-size:8.5px; color:#404040;">Черга заїздів</span>
+              <span style="font-size:7px; color:#737373;">Трек 1</span>
             </div>
-            <div class="space-y-1.5">
+            <div class="space-y-2">
               {queue.map(q => (
-                <div>
-                  <div class="inline-block px-1.5 py-0.5 rounded bg-emerald-500 text-white font-semibold mb-1" style="font-size:6.5px;">Старт</div>
+                <div class="rounded-lg p-1.5" style={q.status === 'run' ? 'border:1px solid #bbf7d0; background:#f0fdf4;' : 'border:1px solid #ebebeb;'}>
                   <div class="flex items-center justify-between">
-                    <span class="text-slate-700 font-medium" style="font-size:7.5px;">Заїзд №{q.n}</span>
-                    <span class="text-slate-400" style="font-size:6.5px;">{q.time}</span>
+                    <span class="font-medium" style="font-size:7.5px; color:#262626;">Заїзд №{q.n} · {q.time}</span>
+                    {q.status === 'run'
+                      ? <span class="px-1 rounded text-white" style="font-size:6px; background:#22a05a;">йде зараз</span>
+                      : q.status === 'next'
+                        ? <span class="px-1 rounded text-white" style="font-size:6px; background:#2b62ef;">Старт</span>
+                        : <span style="font-size:6.5px; color:#a3a3a3;">{q.fill}</span>}
                   </div>
-                  <div class="rounded-md mt-1 py-1.5 text-center" style="background:#f8fafc; border:1px dashed #e2e8f0;">
-                    <span class="text-slate-400" style="font-size:6.5px;">{q.people ? `${q.people} учасники` : 'Учасників немає'}</span>
-                  </div>
+                  {q.pilots.length > 0 ? (
+                    <div class="mt-1 space-y-0.5">
+                      {q.pilots.map(([name, kart]) => (
+                        <div class="flex justify-between" style="font-size:6.5px; color:#525252;">
+                          <span>{name}</span><span style="color:#a3a3a3;">карт {kart}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div class="rounded-md mt-1 py-1.5 text-center" style="background:#fafafa; border:1px dashed #e5e5e5; font-size:6.5px; color:#a3a3a3;">Перетягніть пілотів сюди</div>
+                  )}
                 </div>
               ))}
             </div>
@@ -159,8 +231,13 @@ const queue = [
       </div>
     </div>
 
-    <p class="text-center text-slate-500 text-sm mt-6" data-animate="fade-up" data-animate-delay="3">
-      Кожен чек одразу йде на фіскалізацію через Checkbox — незалежно від того, що продано: прокат, гонка, тренування академії чи подарунковий сертифікат.
-    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2.5 mt-8 max-w-5xl mx-auto" data-animate="fade-up" data-animate-delay="3">
+      {capabilities.map(c => (
+        <div class="flex items-start gap-2 text-sm text-slate-400">
+          <svg class="w-4 h-4 mt-0.5 shrink-0 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>{c}</span>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

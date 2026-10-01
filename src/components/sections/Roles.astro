@@ -1,0 +1,85 @@
+---
+const roles = [
+  {
+    title: 'Власник і адміністратор',
+    lead: 'Огляд клубу, а не таблиця цифр',
+    points: [
+      '«Потребує уваги»: чеки без Checkbox, забуті зміни, неоплачені броні, товари на мінімумі',
+      'Виручка, чеки й заповненість проти того ж дня тиждень тому',
+      'Завантаження треків, події тижня, останні чеки',
+      'Модулі вмикаються в налаштуваннях — без зайвих пунктів меню',
+    ],
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+  },
+  {
+    title: 'Касир',
+    lead: 'Робочий стіл зміни',
+    points: [
+      'Моя зміна: чеки, готівка й картка за сьогодні',
+      'Найближчі заїзди з неоплаченими місцями',
+      'Хто сьогодні приходить: броні, гонки, тренування, академія',
+      'Бачить лише свою локацію та дозволені розділи',
+    ],
+    icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
+  },
+  {
+    title: 'Маршал',
+    lead: 'Черга на треку — з телефона',
+    points: [
+      'Склад заїзду та номери картів',
+      'Пілоти, які не дійшли в таймінг, — одразу видно',
+      'Особистий QR: клієнти, яких привів маршал, рахуються',
+    ],
+    icon: 'M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7',
+  },
+  {
+    title: 'Клієнт',
+    lead: 'Застосунок і онлайн-покупки',
+    points: [
+      'Вхід за SMS-кодом, бронювання заїздів, реєстрація на гонки',
+      'Бонуси, пакети й клубні карти — у телефоні',
+      'Купівля сертифікатів і клубних карт онлайн',
+      'Push про бонуси, анонси гонок і нагадування',
+    ],
+    icon: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
+  },
+];
+---
+
+<section id="roles" class="pt-10 pb-10 bg-slate-900 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(57,115,255,0.06),transparent)]"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14" data-animate="fade-up">
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
+        <span class="text-slate-400 text-sm font-medium">Для всієї команди</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+        Кожен бачить <span class="bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">своє</span>
+      </h2>
+      <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+        Головна екрана підлаштовується під роль: адміну — стан клубу, касиру — його зміна, маршалу — черга на треку.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {roles.map((role, i) => (
+        <div class="bg-white/[0.04] border border-white/10 hover:border-brand-500/40 rounded-2xl p-6 transition-colors duration-300" data-animate="fade-up" data-animate-delay={i + 1}>
+          <div class="w-10 h-10 bg-brand-600/20 rounded-xl flex items-center justify-center text-brand-400 mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={role.icon}/></svg>
+          </div>
+          <h3 class="text-base font-semibold text-white">{role.title}</h3>
+          <p class="text-brand-300/80 text-sm mb-4">{role.lead}</p>
+          <ul class="space-y-2">
+            {role.points.map(p => (
+              <li class="flex items-start gap-2 text-sm text-slate-400 leading-relaxed">
+                <span class="w-1 h-1 rounded-full bg-brand-400 mt-2 shrink-0"></span>
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

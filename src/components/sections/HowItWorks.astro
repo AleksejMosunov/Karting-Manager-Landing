@@ -3,25 +3,25 @@ const steps = [
   {
     number: '01',
     title: 'Підключення клубу',
-    description: 'Реєструємо вашу організацію, налаштовуємо локації, траси та команду адміністраторів.',
+    description: 'Заводимо організацію, локації, простори й типи картів, каталог послуг і команду — адмінів, касирів і маршалів.',
     icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
   },
   {
     number: '02',
-    title: 'Налаштування каси',
-    description: 'Підключаємо Checkbox для фіскалізації та хмарний POS-термінал для оплати карткою.',
+    title: 'Каса й оплати',
+    description: 'Підключаємо Checkbox, банківський термінал через PayLink і чековий принтер. Юрособи та ФОП — під кожну касу.',
     icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>`,
   },
   {
     number: '03',
     title: 'Запуск застосунку',
-    description: 'Клієнти завантажують застосунок, реєструються через SMS та починають бронювати траси самостійно.',
+    description: 'Клієнти встановлюють застосунок, входять за SMS-кодом і самі бронюють заїзди та реєструються на гонки.',
     icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>`,
   },
   {
     number: '04',
     title: 'Повний цикл роботи',
-    description: 'Керуйте бронюваннями, видавайте бонуси, формуйте чеки та аналізуйте результати — все в одному місці.',
+    description: 'Продаєте, ставите людей у заїзди, ведете гроші й зарплату. Про кожне оновлення адмінка розповість сама — у «Що нового».',
     icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
   },
 ];
@@ -35,7 +35,7 @@ const steps = [
       <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
         <span class="text-slate-400 text-sm font-medium">Простий старт</span>
       </div>
-      <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">Як це працює</h2>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-4">Як це працює</h2>
       <p class="text-slate-400 text-lg max-w-xl mx-auto">
         Від підключення до повноцінної роботи — за кілька днів. Без зайвих складнощів.
       </p>
@@ -46,14 +46,14 @@ const steps = [
         <div class="relative group h-full" data-animate="fade-up" data-animate-delay={i + 1}>
           {/* Connector line */}
           {i < steps.length - 1 && (
-            <div class="hidden lg:block absolute top-7 left-full w-6 h-px bg-gradient-to-r from-indigo-600/40 to-transparent z-0" />
+            <div class="hidden lg:block absolute top-7 left-full w-6 h-px bg-gradient-to-r from-brand-600/40 to-transparent z-0" />
           )}
 
-          <div class="relative z-10 h-full bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-indigo-500/30 rounded-2xl p-6 transition-all duration-300">
+          <div class="relative z-10 h-full bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-brand-500/30 rounded-2xl p-6 transition-all duration-300">
             <!-- Step number + icon -->
             <div class="flex items-center gap-3 mb-4">
-              <div class="text-4xl font-black text-indigo-600/25 leading-none font-mono">{step.number}</div>
-              <div class="w-9 h-9 bg-indigo-600/20 rounded-lg flex items-center justify-center text-indigo-400" set:html={step.icon} />
+              <div class="text-4xl font-bold text-brand-600/25 leading-none font-mono">{step.number}</div>
+              <div class="w-9 h-9 bg-brand-600/20 rounded-lg flex items-center justify-center text-brand-400" set:html={step.icon} />
             </div>
             <h3 class="text-base font-semibold mb-2 text-white">{step.title}</h3>
             <p class="text-slate-500 text-sm leading-relaxed">{step.description}</p>
@@ -65,7 +65,7 @@ const steps = [
     <!-- Bottom note -->
     <div class="mt-12 text-center">
       <div class="inline-flex items-center gap-2 text-slate-500 text-sm">
-        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
         Середній час від підписання до запуску — <span class="text-slate-300 font-semibold">3 робочих дні</span>
